@@ -1,10 +1,11 @@
-Spring skeleton created by official guide:  
+### Organizer
 
-https://spring.io/guides/gs/serving-web-content/  
+---
+MySql setup:  
+ - Create `organizer` db.
+ - `src/main/resources/application.properties` assumes mysql user is **root** without password
 
-Spring Boot + Mysql guide:
-
-https://spring.io/guides/gs/accessing-data-mysql/
+---
 
 Todo:
 * Create Calendar entity class
@@ -24,7 +25,13 @@ mvn clean install
 Run:  
 
 ```bash
-java -jar target/gs-spring-boot-0.1.0.jar
+java -jar target/organizer-0.1.0.jar
 ```
+
+
+Useful links:
+   - Basic tutorial: https://spring.io/guides/gs/serving-web-content/    
+   - SpringBoot + MySQL guide: https://spring.io/guides/gs/accessing-data-mysql/
+
 
 
