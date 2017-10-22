@@ -43,7 +43,7 @@ public class CalendarController {
 
     }
 
-    @GetMapping(path = "/calendar/{id}")
+    @GetMapping(path = "/calendar/{id}/update")
     public @ResponseBody
     String updateCalendar(@PathVariable Long id, @RequestParam(required = false) String name
             , @RequestParam(required = false) String description) {
