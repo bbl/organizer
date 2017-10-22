@@ -13,6 +13,7 @@ Todo:
 `/calendar/add?name=calend1&description=descr1`  
 `/calendar/all`  
 `/calendar/1`  
+`/calendar/1/update?name=calend1&description=descr1` name and description are optional  
 `/calendar/delete/1`  
 
 * Create Event entity class
