@@ -8,8 +8,13 @@ MySql setup:
 ---
 
 Todo:
-* Create Calendar entity class
-* Create CRUD calls for Calendar 
+* Create Calendar entity class (Done)
+* Create CRUD calls for Calendar (Done)  
+`/calendar/add?name=calend1&description=descr1`  
+`/calendar/all`  
+`/calendar/1`  
+`/calendar/delete/1`  
+
 * Create Event entity class
 * Create CRUD calls for Event
 * Add views
