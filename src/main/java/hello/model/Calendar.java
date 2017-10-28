@@ -16,6 +16,14 @@ public class Calendar {
 
     private Boolean isPrivate;
 
+    public Boolean getPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
     public Long getId() {
         return id;
     }
