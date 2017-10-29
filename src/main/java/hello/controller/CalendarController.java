@@ -28,10 +28,14 @@ public class CalendarController {
 
     @RequestMapping(path = "/calendar/add")
     public String addNewCalendar(@RequestParam String name
-            , @RequestParam String description) {
+            , @RequestParam String description, @RequestParam(required = false) Boolean isPrivate) {
         Calendar n = new Calendar();
         n.setName(name);
         n.setDescription(description);
+        n.setPrivate(isPrivate);
+        if (null == isPrivate) {
+            n.setPrivate(false);
+        }
         calendarRepository.save(n);
         //return "Saved";
         return "redirect:/calendar";
@@ -78,6 +82,4 @@ public class CalendarController {
         return "redirect:/calendar";
 
     }
-
-
 }

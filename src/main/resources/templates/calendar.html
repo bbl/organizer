@@ -79,7 +79,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createCalendarModal">New calendar</h5>
+                <h5 class="modal-title">New calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -115,7 +115,8 @@
                         <div class="col-sm-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="private"/> Private
+                                    <!--<input type="hidden" name="isPrivate" value="0"/>-->
+                                    <input class="form-check-input" type="checkbox" name="isPrivate"/> Private
                                 </label>
                             </div>
                         </div>
@@ -134,7 +135,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editCalendarModal">Edit calendar</h5>
+                <h5 class="modal-title">Edit calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -171,9 +172,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="createDescription" class="col-sm-3 col-form-label">Description: </label>
+                        <label for="editDescription" class="col-sm-3 col-form-label">Description: </label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="createDescription" rows="3" placeholder="Description"
+                            <textarea class="form-control" id="editDescription" rows="3" placeholder="Description"
                                       name="description" required="true"></textarea>
                         </div>
                     </div>
@@ -201,7 +202,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteCalendarModal">Delete calendar</h5>
+                <h5 class="modal-title">Delete calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -254,22 +255,22 @@
             <h2>My calendars</h2>
             <div th:each="calendar : ${calendars}">
                 <input type="checkbox"/>
-                <span th:text="${calendar.name}"></span>
+                <span th:text="${calendar.name}" data-toggle="tooltip" data-placement="right" th:title="${calendar.description}"></span>
             </div>
         </div>
         <div>
             <h2>External calendars</h2>
             <div>
                 <input type="checkbox"/>
-                <span>Diploma</span>
-                <a class="btn btn-danger" href="" aria-label="Delete" style="margin-left: 100px">
+                <span style="width: 50%; display: inline-block;">Diploma</span>
+                <a class="btn btn-danger" href="" aria-label="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </div>
             <div>
                 <input type="checkbox"/>
-                <span>Course project</span>
-                <a class="btn btn-danger" href="" aria-label="Delete" style="margin-left: 55px">
+                <span style="width: 50%; display: inline-block;">Course project</span>
+                <a class="btn btn-danger" href="" aria-label="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </div>
