@@ -53,8 +53,6 @@ public class CalendarController {
     Calendar getCalendar(@PathVariable Long id) {
         // This returns a JSON or XML with the users
         return calendarRepository.findOne(id);
-        //return "Deleted";
-
     }
 
     @RequestMapping(path = "/calendar/update")
