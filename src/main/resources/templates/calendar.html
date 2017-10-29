@@ -140,7 +140,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" id="editCalendarForm" method="POST">
+            <form action="calendar/update" id="editCalendarForm" method="POST">
                 <div class="modal-body">
                     <div class="bs-callout bs-callout-warning hidden">
                         <h4>Oh snap!</h4>
@@ -156,7 +156,7 @@
                     <div class="form-group row">
                         <label for="chooseCalendar" class="col-sm-5 col-form-label">Choose calendar: </label>
                         <div class="col-sm-7">
-                            <select class="custom-select" id="chooseCalendar" name="calendar" required="true">
+                            <select class="custom-select" id="chooseCalendar" name="id" required="true">
                                 <option selected="selected" disabled="disabled">Open this select menu</option>
                                 <div th:each="calendar : ${calendars}">
                                     <option th:value="${calendar.id}" th:text="${calendar.name}"></option>
@@ -167,7 +167,7 @@
                     <div class="form-group row">
                         <label for="createName" class="col-sm-3 col-form-label">Name: </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="createName" placeholder="Calendar name"
+                            <input type="text" class="form-control" id="editName" placeholder="Calendar name"
                                    name="name" required="true"/>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                         <div class="col-sm-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="public" disabled="true"/> Is
+                                    <input class="form-check-input" id="editIsPrivate" type="checkbox" name="public" disabled="true"/> Is
                                     public
                                 </label>
                             </div>
@@ -360,8 +360,8 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
         integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
