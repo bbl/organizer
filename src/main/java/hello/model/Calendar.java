@@ -55,7 +55,5 @@ public class Calendar {
     public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
-
-
 }
 

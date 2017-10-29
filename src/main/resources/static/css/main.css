@@ -126,7 +126,9 @@ body {
 
 .calendar-buttons i {
     cursor: pointer;
-}.calendar-buttons {
+}
+
+.calendar-buttons {
     padding: 0;
 }
 
@@ -209,16 +211,6 @@ body {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
-}
-
-@media screen and (min-height: 768px){
-    .calendar-buttons {
-        display: flex;
-        justify-content: center;    
-    }  
-    .calendar-buttons div {
-        display: inline-block;
-    }
 }
 
 .search {

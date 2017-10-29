@@ -54,6 +54,28 @@ $(document).ready(function () {
       },
 
       /**
+      * Events handlers initialisation
+      */
+      initHandlers: () => {
+        $('#editCalendarForm #chooseCalendar').on('change', function () {
+          $.ajax({
+            type: 'GET',
+            url: 'calendar/' + $(this).val(),
+            data: $(this).val(),
+            dataType: 'json',
+            success: function (result) {
+              $('#editName').val(result.name);
+              $('#editDescription').val(result.description);
+              $('input').iCheck('uncheck');
+              if (result.private) {
+                $('#editIsPrivate').iCheck('check');
+              }
+            },
+          });
+        });
+      },
+
+      /**
       * Initialize function.
       *
       * @return void
@@ -62,6 +84,7 @@ $(document).ready(function () {
         date = moment();
         CalendarController.setCurrentCalendar();
         CalendarController.initButtons();
+        CalendarController.initHandlers();
       }
     };
 

@@ -82,4 +82,8 @@ $(document).ready(function() {
     	increaseArea: '-10%' // optional
 	 	});
 	});
+
+	$(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
 });

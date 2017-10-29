@@ -28,10 +28,14 @@ public class CalendarController {
 
     @RequestMapping(path = "/calendar/add")
     public String addNewCalendar(@RequestParam String name
-            , @RequestParam String description) {
+            , @RequestParam String description, @RequestParam(required = false) Boolean isPrivate) {
         Calendar n = new Calendar();
         n.setName(name);
         n.setDescription(description);
+        n.setPrivate(isPrivate);
+        if (null == isPrivate) {
+            n.setPrivate(false);
+        }
         calendarRepository.save(n);
         //return "Saved";
         return "redirect:/calendar";
@@ -49,13 +53,11 @@ public class CalendarController {
     Calendar getCalendar(@PathVariable Long id) {
         // This returns a JSON or XML with the users
         return calendarRepository.findOne(id);
-        //return "Deleted";
-
     }
 
     @RequestMapping(path = "/calendar/update")
     public String updateCalendar(@RequestParam Long id, @RequestParam(required = false) String name
-            , @RequestParam(required = false) String description, @RequestParam(required = false) Boolean isPrivate) {
+            , @RequestParam(required = false) String description) {
         Calendar c = calendarRepository.findOne(id);
         if (null != name) {
             c.setName(name);
@@ -63,12 +65,9 @@ public class CalendarController {
         if (null != description) {
             c.setDescription(description);
         }
-        if (null != isPrivate) {
-            c.setPrivate(isPrivate);
-        }
         calendarRepository.save(c);
-        return "Saved";
-
+        //return "Saved";
+        return "redirect:/calendar";
     }
 
     @RequestMapping(path = "/calendar/delete")
@@ -76,8 +75,5 @@ public class CalendarController {
         calendarRepository.delete(id);
         //return "Deleted";
         return "redirect:/calendar";
-
     }
-
-
 }

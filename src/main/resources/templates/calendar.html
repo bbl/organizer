@@ -79,7 +79,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createCalendarModal">New calendar</h5>
+                <h5 class="modal-title">New calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -115,7 +115,8 @@
                         <div class="col-sm-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="private"/> Private
+                                    <!--<input type="hidden" name="isPrivate" value="0"/>-->
+                                    <input class="form-check-input" type="checkbox" name="isPrivate"/> Private
                                 </label>
                             </div>
                         </div>
@@ -134,12 +135,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editCalendarModal">Edit calendar</h5>
+                <h5 class="modal-title">Edit calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" id="editCalendarForm" method="POST">
+            <form action="calendar/update" id="editCalendarForm" method="POST">
                 <div class="modal-body">
                     <div class="bs-callout bs-callout-warning hidden">
                         <h4>Oh snap!</h4>
@@ -155,8 +156,8 @@
                     <div class="form-group row">
                         <label for="chooseCalendar" class="col-sm-5 col-form-label">Choose calendar: </label>
                         <div class="col-sm-7">
-                            <select class="custom-select" id="chooseCalendar" name="calendar" required="true">
-                                <option selected="selected" disabled="disabled">Open this select menu</option>
+                            <select class="custom-select" id="chooseCalendar" name="id" required="true">
+                                <option selected="selected" disabled="disabled">None</option>
                                 <div th:each="calendar : ${calendars}">
                                     <option th:value="${calendar.id}" th:text="${calendar.name}"></option>
                                 </div>
@@ -166,14 +167,14 @@
                     <div class="form-group row">
                         <label for="createName" class="col-sm-3 col-form-label">Name: </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="createName" placeholder="Calendar name"
+                            <input type="text" class="form-control" id="editName" placeholder="Calendar name"
                                    name="name" required="true"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="createDescription" class="col-sm-3 col-form-label">Description: </label>
+                        <label for="editDescription" class="col-sm-3 col-form-label">Description: </label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="createDescription" rows="3" placeholder="Description"
+                            <textarea class="form-control" id="editDescription" rows="3" placeholder="Description"
                                       name="description" required="true"></textarea>
                         </div>
                     </div>
@@ -181,7 +182,7 @@
                         <div class="col-sm-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="public" disabled="true"/> Is
+                                    <input class="form-check-input" id="editIsPrivate" type="checkbox" name="public" disabled="true"/> Is
                                     public
                                 </label>
                             </div>
@@ -201,7 +202,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteCalendarModal">Delete calendar</h5>
+                <h5 class="modal-title">Delete calendar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -223,7 +224,7 @@
                         <label for="chooseCalendar" class="col-sm-5 col-form-label">Choose calendar: </label>
                         <div class="col-sm-7">
                             <select name="id" class="custom-select" id="chooseCalendar" required="required">
-                                <option selected="selected" disabled="disabled">Open this select menu</option>
+                                <option selected="selected" disabled="disabled">None</option>
                                 <div th:each="calendar : ${calendars}">
                                     <option th:value="${calendar.id}" th:text="${calendar.name}"></option>
                                 </div>
@@ -254,22 +255,22 @@
             <h2>My calendars</h2>
             <div th:each="calendar : ${calendars}">
                 <input type="checkbox"/>
-                <span th:text="${calendar.name}"></span>
+                <span th:text="${calendar.name}" data-toggle="tooltip" data-placement="right" th:title="${calendar.description}"></span>
             </div>
         </div>
         <div>
             <h2>External calendars</h2>
             <div>
                 <input type="checkbox"/>
-                <span>Diploma</span>
-                <a class="btn btn-danger" href="" aria-label="Delete" style="margin-left: 100px">
+                <span style="width: 50%; display: inline-block;">Diploma</span>
+                <a class="btn btn-danger" href="" aria-label="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </div>
             <div>
                 <input type="checkbox"/>
-                <span>Course project</span>
-                <a class="btn btn-danger" href="" aria-label="Delete" style="margin-left: 55px">
+                <span style="width: 50%; display: inline-block;">Course project</span>
+                <a class="btn btn-danger" href="" aria-label="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </div>
@@ -291,10 +292,10 @@
 </div>
 <div class="container">
     <div class="row header">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <h1 class="text-center logo">Ahead of time</h1>
         </div>
-        <div class="col-md-2 offset-md-7 align-self-center">
+        <div class="col-md-2 offset-md-6 align-self-center">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
                 Log in
             </button>
@@ -359,8 +360,8 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
         integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
