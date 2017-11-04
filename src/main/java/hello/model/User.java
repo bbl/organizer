@@ -3,28 +3,19 @@ package hello.model;
 import org.hibernate.validator.constraints.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
 public class User {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name="login")
-    @NotNull
-    @NotEmpty(message = "*Please provide your login")
     private String login;
-
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotNull
-    @NotEmpty(message = "*Please provide your password")
-    @Column(name="password")
     private String password;
+    private String passwordConfirm;
+    private Set<Role> roles;
 
-
-    //getters & setters
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -49,9 +40,22 @@ public class User {
         this.password = password;
     }
 
-    protected User(){}
-    public User(String login, String pass) {
-        this.login = login;
-        this.password = pass;
+    @Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

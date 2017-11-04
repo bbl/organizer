@@ -3,6 +3,8 @@ package hello.controller;
 import hello.model.User;
 import hello.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,7 +16,23 @@ public class UserController {
     @Autowired
     private UserRepository users;
 
-    @RequestMapping(path="/all")
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userForm);
+
+        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/welcome";
+    }
+
+
+    /*@RequestMapping(path="/all")
     public @ResponseBody List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         users.findAll().forEach(result::add);
@@ -38,5 +56,5 @@ public class UserController {
     public User getUser(@PathVariable("id") Long id)
     {
         return users.findOne(id);
-    }
+    }*/
 }

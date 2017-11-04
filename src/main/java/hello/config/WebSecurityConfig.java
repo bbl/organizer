@@ -1,6 +1,6 @@
 package hello.config;
 
-import hello.utils.MySQLUserDetailsService;
+import hello.utils.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -20,22 +20,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/user/add", "/user/all").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .antMatchers("/", "/calendar").permitAll();
     }
 
     @Autowired
-    private MySQLUserDetailsService mySQLUserDetailsService;
+    private MyUserService myUserService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(mySQLUserDetailsService);
+        auth.userDetailsService(myUserService);
     }
 }
