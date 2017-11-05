@@ -73,9 +73,14 @@ public class CalendarController {
     }
 
     @RequestMapping(path = "/calendar/delete")
-    public String deleteCalendar(@RequestParam Long id) {
-        calendarRepository.delete(id);
-        //return "Deleted";
-        return "redirect:/calendar";
+    public @ResponseBody
+    String deleteCalendar(@RequestParam Long id) {
+        try {
+            calendarRepository.delete(id);
+        } catch (Exception e) {
+            return "Error";
+        }
+
+        return "Deleted";
     }
 }

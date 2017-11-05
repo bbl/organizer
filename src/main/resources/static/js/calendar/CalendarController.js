@@ -21,7 +21,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < date.daysInMonth(); i++) {
           if ((date.format('MMMM YYYY') == now.format('MMMM YYYY')) && ((i + 1) == now.format("D"))) {
-            $(".days").append("<td class='calendar-day'><span class='active-calendar-day'>" +  (i + 1) + "</span></td>");
+            $(".days").append("<td class='calendar-day active-calendar-day'><span'>" +  (i + 1) + "</span></td>");
           } else {
             $(".days").append("<td class='calendar-day'>" +  (i + 1) + "</td>");
           }
@@ -57,11 +57,11 @@ $(document).ready(function () {
       * Events handlers initialisation
       */
       initHandlers: () => {
-        $('#editCalendarForm #chooseCalendar').on('change', function () {
+        //choosing calendar in select on edit calendar pop-up
+        $('#editCalendarForm #chooseCalendarForEdit').on('change', function () {
           $.ajax({
             type: 'GET',
             url: 'calendar/' + $(this).val(),
-            data: $(this).val(),
             dataType: 'json',
             success: function (result) {
               $('#editName').val(result.name);
@@ -72,6 +72,26 @@ $(document).ready(function () {
               }
             },
           });
+        });
+
+        $('#deleteCalendarForm button[type=submit]').on('click', function (e) {
+          e.preventDefault();
+
+          $.ajax({
+            type: 'POST',
+            url: '/calendar/delete',
+            data: {
+              id: $('#chooseCalendarForDelete').val(),
+            },
+            dataType: 'json',
+          }).done(function (result) {
+            console.log('result');
+          });
+        });
+
+        $('.calendar-day').on('dblclick', function () {
+          console.log('double click');
+          console.log($(this).val());
         });
       },
 
