@@ -43,6 +43,36 @@ $(document).ready(function() {
 	});
 
 	/**
+	* Register form validation
+	*/
+	$(function () {
+	  $('#registerForm').parsley().on('field:validated', function() {
+	    var ok = $('.parsley-error').length === 0;
+	    $('.bs-callout-info').toggleClass('hidden', !ok);
+	    $('.bs-callout-warning').toggleClass('hidden', ok);
+	  });
+
+	  $('#registerForm button[type=submit]').on('click',function(e) {
+        e.preventDefault();
+        if ( $('#registerForm').parsley().isValid() ) {
+          console.log($('#registerForm').serialize());
+          $.ajax({
+            url:'/register',
+            data: $('#registerForm').serialize(),
+            type:'POST',
+            success: function (data){
+            console.log(data);
+              //TODO toastr success message
+            },
+            error: function(data){
+              //TODO toastr error message
+            }
+          });
+        }
+      });
+	});
+
+	/**
 	* Create calendar form validation
 	*/
 	$(function () {
