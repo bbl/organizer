@@ -64,7 +64,7 @@ $(document).ready(function() {
 	  });
 	});
 
-		/**
+	/**
 	* Edit calendar form validation
 	*/
 	$(function () {
@@ -75,6 +75,9 @@ $(document).ready(function() {
 	  });
 	});
 
+    /**
+    * iCheck bootstrap
+    */
 	$(document).ready(function(){
 	  $('input').iCheck({
   		checkboxClass: 'icheckbox_polaris',
@@ -83,6 +86,9 @@ $(document).ready(function() {
 	 	});
 	});
 
+    /**
+    * Tooltips bootstrap
+    */
 	$(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
