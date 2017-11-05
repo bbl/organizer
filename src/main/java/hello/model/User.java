@@ -1,15 +1,17 @@
 package hello.model;
 
-import org.hibernate.validator.constraints.*;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
 import java.util.Set;
 
+@EnableAutoConfiguration
 @Entity
-@Table(name = "Users")
+//@Table(name = "Users")
 public class User {
     private Long id;
-    private String login;
+    private String username;
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
@@ -24,12 +26,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

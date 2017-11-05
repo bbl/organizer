@@ -1,10 +1,10 @@
 package hello.controller;
 
 import hello.model.User;
-import hello.utils.SecurityService;
-import hello.utils.UserService;
+import hello.service.SecurityService;
+import hello.service.SecurityServiceImpl;
+import hello.service.UserService;
 import hello.validator.UserValidator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,29 +24,30 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    /*@RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
         return "registration";
-    }*/
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
+//        userValidator.validate(userForm, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getLogin(), userForm.getPasswordConfirm());
+//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/welcome";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -54,38 +55,11 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "/calendar";
+        return "login";
     }
 
-    /*@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         return "welcome";
-    }*/
+    }
 }
-
-
-    /*@RequestMapping(path="/all")
-    public @ResponseBody List<User> getAllUsers() {
-        List<User> result = new ArrayList<>();
-        users.findAll().forEach(result::add);
-        return result;
-    }
-
-    @RequestMapping("/add")
-    public String addUser(@RequestParam String login, @RequestParam String password)
-    {
-        users.save(new User(login, password));
-        return "Saved!";
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id)
-    {
-        users.delete(id);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable("id") Long id)
-    {
-        return users.findOne(id);
-    }*/

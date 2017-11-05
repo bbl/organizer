@@ -1,6 +1,5 @@
 package hello.controller;
 
-import hello.utils.SecurityService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +8,9 @@ import org.springframework.stereotype.Controller;
 
 
 import hello.model.Calendar;
+import hello.model.User;
 import hello.repository.CalendarRepository;
+import hello.service.SecurityService;
 
 
 //@RestController
@@ -24,6 +25,7 @@ public class CalendarController {
 
     @RequestMapping("/calendar")
     public String calendar(Model model) {
+        model.addAttribute("userForm", new User());
         model.addAttribute("calendars", calendarRepository.findAll());
         return "calendar";
     }

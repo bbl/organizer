@@ -1,4 +1,5 @@
-package hello.utils;
+package hello.service;
+
 
 public interface SecurityService {
     String findLoggedInUsername();

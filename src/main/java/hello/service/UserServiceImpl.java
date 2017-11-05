@@ -1,5 +1,4 @@
-package hello.utils;
-
+package hello.service;
 
 import hello.model.User;
 import hello.repository.RoleRepository;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 
 @Service
-public class MyUserService implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -22,13 +21,13 @@ public class MyUserService implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setPassword(user.getPassword());
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
     @Override
-    public User findByLogin(String login) {
-
-        return userRepository.findByLogin(login);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
