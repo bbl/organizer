@@ -21,9 +21,9 @@ $(document).ready(function () {
 
         for (var i = 0; i < date.daysInMonth(); i++) {
           if ((date.format('MMMM YYYY') == now.format('MMMM YYYY')) && ((i + 1) == now.format("D"))) {
-            $(".days").append("<td class='calendar-day active-calendar-day'><span'>" +  (i + 1) + "</span></td>");
+            $(".days").append("<td class='calendar-day active-calendar-day' date='" + date.date(i+1).format('YYYY-MM-DD') + "'>" +  (i + 1) + "</td>");
           } else {
-            $(".days").append("<td class='calendar-day'>" +  (i + 1) + "</td>");
+            $(".days").append("<td class='calendar-day' date='" + date.date(i+1).format('YYYY-MM-DD') + "'>" +  (i + 1) + "</td>");
           }
 
           if (++startDay == 7) {
@@ -74,6 +74,7 @@ $(document).ready(function () {
           });
         });
 
+        //delete calendar ajax
         $('#deleteCalendarForm button[type=submit]').on('click', function (e) {
           e.preventDefault();
 
@@ -89,9 +90,21 @@ $(document).ready(function () {
           });
         });
 
-        $('.calendar-day').on('dblclick', function () {
-          console.log('double click');
-          console.log($(this).val());
+        //create event pop-up
+        $(document).on('dblclick', '.calendar-day', function () {
+          if ($('#datetimepicker').data("DateTimePicker") !== undefined) {
+            $('#datetimepicker').data("DateTimePicker").destroy();
+          }
+
+          const eventDate = $(this).attr('date');
+
+          $('#datetimepicker').datetimepicker({
+            inline: true,
+            sideBySide: true,
+            defaultDate: eventDate,
+          });
+
+          $('#createEventModal').modal('show')
         });
       },
 

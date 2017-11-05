@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="css/parsley.css"/>
     <link rel="stylesheet" href="css/toastr.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <link href="css/skins/polaris/polaris.css" rel="stylesheet"/>
 </head>
 <body>
@@ -293,6 +294,64 @@
         </div>
     </div>
 </div>
+<!-- Create event modal -->
+<div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/" id="createEventForm" method="POST">
+                <div class="modal-body">
+                    <div class="bs-callout bs-callout-warning hidden">
+                        <h4>Oh snap!</h4>
+                        <p>This form seems to be invalid...</p>
+                        <hr/>
+                    </div>
+
+                    <div class="bs-callout bs-callout-info hidden">
+                        <h4>Good!</h4>
+                        <p>Everything seems to be ok!</p>
+                        <hr/>
+                    </div>
+                    <div class="form-group row">
+                        <label for="createTitle" class="col-sm-3 col-form-label">Title: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="title" class="form-control" id="createTitle"
+                                   placeholder="Event title" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="createPlace" class="col-sm-3 col-form-label">Place: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="title" class="form-control" id="createPlace"
+                                   placeholder="Event place" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="createDescription" class="col-sm-3 col-form-label">Description: </label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" id="createDescription" rows="3" name="description"
+                                      placeholder="Description" required="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-md-2 col-md-8">
+                            <div id="datetimepicker"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Main part -->
 <div class="side-menu-button" id="side-menu-open">
     <div class="bar1"></div>
@@ -427,11 +486,12 @@
         integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/e0869bc4be.js"></script>
-<script src="js/script.js"></script>
 <script src="js/calendar/CalendarController.js"></script>
 <script src="js/libs/moment-with-locales.js"></script>
 <script src="js/libs/parsley.min.js"></script>
 <script src="js/libs/icheck.js"></script>
 <script src="js/libs/toastr.min.js"></script>
+<script src="js/libs/bootstrap-datetimepicker.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

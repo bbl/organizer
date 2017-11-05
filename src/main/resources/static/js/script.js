@@ -83,6 +83,17 @@ $(document).ready(function() {
 	  });
 	});
 
+    /**
+	* Create calendar form validation
+	*/
+	$(function () {
+	  $('#createEventForm').parsley().on('field:validated', function() {
+	    var ok = $('.parsley-error').length === 0;
+	    $('.bs-callout-info').toggleClass('hidden', !ok);
+	    $('.bs-callout-warning').toggleClass('hidden', ok);
+	  });
+	});
+
 	/**
 	* Edit calendar form validation
 	*/
@@ -95,7 +106,7 @@ $(document).ready(function() {
 	});
 
 	/**
-	* Edit calendar form validation
+	* Delete calendar form validation
 	*/
 	$(function () {
 	  $('#deleteCalendarForm').parsley().on('field:validated', function() {
