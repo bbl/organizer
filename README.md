@@ -1,4 +1,6 @@
-### Organizer
+### Organizer  
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/ab71b4d5b1ed3bdcbd4b/maintainability)](https://codeclimate.com/github/metallica127/organizer/maintainability)  
 
 ---
 MySql setup:  
