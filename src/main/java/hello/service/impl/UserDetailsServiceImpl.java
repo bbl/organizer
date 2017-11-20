@@ -1,4 +1,4 @@
-package hello.utils;
+package hello.service.impl;
 
 import hello.model.Role;
 import hello.model.User;
@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService{
+
     @Autowired
     private UserRepository userRepository;
 
@@ -24,7 +26,9 @@ public class MyUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(login);
-
+        if (user == null){
+            throw new UsernameNotFoundException("");
+        }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));

@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<ul>
+    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+</ul>
+<span th:text="${#ex.returnCode}"></span>
+<span th:text="${#ex.returnMessage}"></span>
+</body>
+</html>

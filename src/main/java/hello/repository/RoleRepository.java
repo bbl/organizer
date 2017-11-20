@@ -3,6 +3,10 @@ package hello.repository;
 import hello.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+import java.util.List;
 
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Role findByName(String name);
+
+    List<Role> findAllByNameIn(List<String> names);
 }

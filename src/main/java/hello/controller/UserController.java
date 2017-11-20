@@ -1,91 +1,67 @@
 package hello.controller;
 
+import hello.dto.user.UserDto;
 import hello.model.User;
-import hello.utils.SecurityService;
-import hello.utils.UserService;
+import hello.service.SecurityService;
+import hello.service.UserService;
 import hello.validator.UserValidator;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
-
     @Autowired
     private SecurityService securityService;
-
     @Autowired
     private UserValidator userValidator;
 
-    /*@RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "registration";
-    }*/
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    @RequestMapping(value = "/registration", method = RequestMethod.POST,
+            consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String registration(UserDto userDto, BindingResult bindingResult, Model model) {
+        //userValidator.validate(userDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userForm);
+        userService.save(new User(userDto.getLogin(), userDto.getPassword()));
 
-        securityService.autologin(userForm.getLogin(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
+        return "redirect:/calendar";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "/calendar";
+    @RequestMapping(value = "/login", method = RequestMethod.POST,
+            consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String login(UserDto userDto) {
+        //todo validation
+        boolean autologin = securityService.autologin(userDto.getLogin(), userDto.getPassword());
+        if (!autologin){
+            //todo login error message
+        }
+        return "redirect:/calendar";
     }
 
-    /*@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String transToLogin(@RequestParam(required = false) String logout) {
+        return "redirect:/calendar";
+    }
+
+    /*@ModelAttribute("userForm")
+    private UserDto getUserDto(@RequestParam String login,
+                               @RequestParam String password,
+                               @RequestParam String confirmedPassword){
+        UserDto userDto = new UserDto();
+        userDto.setLogin(login);
+        userDto.setPassword(password);
+        userDto.setConfirmedPassword(confirmedPassword);
+        return userDto;
     }*/
 }
-
-
-    /*@RequestMapping(path="/all")
-    public @ResponseBody List<User> getAllUsers() {
-        List<User> result = new ArrayList<>();
-        users.findAll().forEach(result::add);
-        return result;
-    }
-
-    @RequestMapping("/add")
-    public String addUser(@RequestParam String login, @RequestParam String password)
-    {
-        users.save(new User(login, password));
-        return "Saved!";
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id)
-    {
-        users.delete(id);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable("id") Long id)
-    {
-        return users.findOne(id);
-    }*/
