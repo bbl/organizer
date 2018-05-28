@@ -1,4 +1,4 @@
-package hello.controller;
+package organizer.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 
 
-import hello.model.Calendar;
-import hello.repository.CalendarRepository;
+import organizer.model.Calendar;
+import organizer.repository.CalendarRepository;
 
 
 //@RestController

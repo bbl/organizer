@@ -1,8 +1,8 @@
-package hello.repository;
+package organizer.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import hello.model.Calendar;
+import organizer.model.Calendar;
 
 public interface CalendarRepository extends CrudRepository<Calendar, Long> {
 }
